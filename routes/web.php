@@ -16,5 +16,9 @@ Route::get('/', function () {
 });
 
 Route::group(['namespace' => 'Home'], function() {
-   Route::get('wel', 'WelcomeController@index');
+   Route::get('attempt', 'WelcomeController@attempt');
+   Route::get('auth', 'WelcomeController@authUser');
+   Route::get('logout', 'WelcomeController@logout');
+   Route::get('index', 'WelcomeController@index');
+   Route::get('app', 'WelcomeController@app');
 });
