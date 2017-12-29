@@ -14,17 +14,19 @@ use App\Http\Controllers\Controller;
 use App\Model\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 
 class WelcomeController extends Controller
 {
-     public function __construct ()
+     public function __construct()
      {
 //         echo 'Home namespace';
      }
 
-    public function attempt ()
+    public function attempt()
     {
 //        dd(Carbon::now());
 //        dd(env('APP_KEY'));
@@ -47,18 +49,18 @@ class WelcomeController extends Controller
 
     }
 
-    public function authUser ()
+    public function authUser()
     {
         dd(Auth::user());
     }
 
-    public function logout ()
+    public function logout()
     {
         $bool = Auth::logout();
         var_dump($bool);
     }
 
-    public function index ()
+    public function index()
     {
 //        $user = User::find(1);
 //        dd($user);
@@ -70,8 +72,24 @@ class WelcomeController extends Controller
         dd($str);
     }
 
-    public function app ()
+    public function getCache()
     {
-        return $this->app();
+        $user =  Cache::get('user');
+        dd($user);
+    }
+    public function putCache() {
+        Cache::put('user', 'redis???', 10);
+    }
+
+    public function putRedis()
+    {
+        $res = Redis::set('name:1', 'huaixiutime', 'EX', 10);
+        dd($res);
+    }
+
+    public function getRedis()
+    {
+        $test = Redis::get('name:1');
+        dd($test);
     }
 }
