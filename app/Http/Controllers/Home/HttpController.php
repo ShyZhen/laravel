@@ -10,6 +10,9 @@
 namespace App\Http\Controllers\Home;
 
 
+
+use Illuminate\Http\Request;
+
 class HttpController
 {
     public function index()
@@ -17,9 +20,9 @@ class HttpController
         dd('hello world');
     }
 
-    public function param($pId, $cId)
+    public function param(Request $request, $pId, $cId)
     {
-        dd($pId.' & '.$cId);
+        dd($pId.' & '.$cId.' & '.$request->age);
     }
     public function redirect()
     {

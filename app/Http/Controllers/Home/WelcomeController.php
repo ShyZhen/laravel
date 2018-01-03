@@ -43,15 +43,15 @@ class WelcomeController extends Controller
 //        Log::debug($message);
 //        echo 'aaa';
 //        $users = User::find(1);
-
-        $bool = Auth::attempt(['email' => '876121290@qq.com', 'password' => 'huaixiu']);
+        $remember = session('remember');
+        $bool = Auth::attempt(['email' => '876121290@qq.com', 'password' => 'huaixiu'], 111);
         echo $bool;  // 1
 
     }
 
     public function authUser()
     {
-        dd(Auth::user());
+        dd(Auth::user().'<hr>'.Auth::viaRemember());
     }
 
     public function logout()
@@ -91,5 +91,10 @@ class WelcomeController extends Controller
     {
         $test = Redis::get('name:1');
         dd($test);
+    }
+
+    public function csrf()
+    {
+        dd(csrf_field());
     }
 }

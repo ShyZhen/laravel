@@ -24,6 +24,10 @@ Route::group(['namespace' => 'Home'], function() {
    Route::get('putCache', 'WelcomeController@putCache');
    Route::get('getRedis', 'WelcomeController@getRedis');
    Route::get('putRedis', 'WelcomeController@putRedis');
+
+   Route::get('csrf', 'WelcomeController@csrf');
+
+   Route::resource('restful','RestfulController');
 });
 
 Route::group(['prefix' => 'route', 'namespace' => 'Home', 'middleware' => ['web', 'auth', 'test']], function() {
