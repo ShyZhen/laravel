@@ -35,4 +35,8 @@ Route::group(['prefix' => 'route', 'namespace' => 'Home', 'middleware' => ['web'
     Route::get('param/{personal_id}/{course_id}','HttpController@param')->where(['personal_id' => '[0-9]+', 'course_id' => '[0-9]+']);
     Route::get('redirect','HttpController@redirect');
     Route::get('model', 'HttpController@model');
+    Route::get('flash', 'HttpController@flashTest');
+    Route::get('getsession', 'HttpController@getSession');
+    Route::get('getcoolie', 'HttpController@getCoolie');
+    Route::any('upload', 'HttpController@upload');
 });

@@ -97,4 +97,5 @@ class WelcomeController extends Controller
     {
         dd(csrf_field());
     }
+
 }
