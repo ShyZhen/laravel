@@ -40,3 +40,27 @@ Route::group(['prefix' => 'route', 'namespace' => 'Home', 'middleware' => ['web'
     Route::get('getcoolie', 'HttpController@getCoolie');
     Route::any('upload', 'HttpController@upload');
 });
+
+Route::group(['prefix' => 'response', 'namespace' => 'Home'], function() {
+   Route::get('index', 'ResponseController@index');
+   Route::get('hello', function() {
+       return 'hello world';
+   });
+    Route::get('/json', function() {
+        return [1,2,3];
+    });
+    Route::get('home', function() {
+        return response('Hellddo World', 202)->header('Content-Type', 'text/plain');
+    });
+    Route::get('home2', 'ResponseController@home2');
+
+    Route::get('cookie', 'ResponseController@cookie');
+    Route::get('cookie/{cookieName}', 'ResponseController@getCookie');
+
+    Route::get('dashboard', function () {
+        return redirect('csrf');
+    });
+
+    Route::get('dash', 'ResponseController@dashboard');
+    Route::get('laracasts', 'ResponseController@laracasts');
+});

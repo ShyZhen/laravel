@@ -24,6 +24,8 @@ class HttpController
 
     public function param(Request $request, $pId, $cId)
     {
+//        dd($request->input('name', 'default23'));
+//        dd($request->all());
 //        dd($request->url().'---'.$request->fullUrl());
         dd($pId.' & '.$cId.' & '.$request->age);
     }
