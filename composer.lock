@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b06663c2c441e5c44bcb824ba2ae40d",
+    "content-hash": "a66682ba0fe7df44cca2a9fae0eb8c0b",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1094,6 +1094,36 @@
                 "uuid"
             ],
             "time": "2017-09-22T20:46:04+00:00"
+        },
+        {
+            "name": "ryan/toastr-for-laravel",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yuansir/toastr-for-laravel5.git",
+                "reference": "b6e6c5577a4031ecad1854df846d447005c47e01"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://files.phpcomposer.com/files/yuansir/toastr-for-laravel5/b6e6c5577a4031ecad1854df846d447005c47e01.zip",
+                "reference": "b6e6c5577a4031ecad1854df846d447005c47e01",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yuansir\\Toastr\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Ryan",
+                    "email": "yuansir@live.cn"
+                }
+            ],
+            "description": "toastr.js for laravel5",
+            "time": "2017-03-09T02:33:27+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

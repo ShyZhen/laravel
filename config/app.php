@@ -176,7 +176,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
         Laracasts\Flash\FlashServiceProvider::class,
+        Yuansir\Toastr\ToastrServiceProvider::class,
 
         /*
          * 自定义服务提供者
@@ -231,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Toastr' => Yuansir\Toastr\Facades\Toastr::class,
     ],
 
 ];

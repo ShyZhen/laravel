@@ -63,4 +63,7 @@ Route::group(['prefix' => 'response', 'namespace' => 'Home'], function() {
 
     Route::get('dash', 'ResponseController@dashboard');
     Route::get('laracasts', 'ResponseController@laracasts');
+    Route::get('laracasts2', 'ResponseController@laracasts2');
+
+    Route::get('toastr', 'ResponseController@toastr');
 });

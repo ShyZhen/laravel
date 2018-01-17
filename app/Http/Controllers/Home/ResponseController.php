@@ -12,6 +12,9 @@ namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cookie;
+use Yuansir\Toastr\Facades\Toastr;
+//use Yuansir\Toastr\Toastr;
+
 
 class ResponseController extends Controller
 {
@@ -63,6 +66,13 @@ class ResponseController extends Controller
         return redirect('route/hello', 301);
     }
 
+    /**
+     * laracasts/flash 消息提示
+     * https://github.com/laracasts/flash
+     * Author huaixiu.zhen
+     * http://litblc.com
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function laracasts()
     {
         flash('sdfsdfsdfsdfsdf')->success();
@@ -70,5 +80,28 @@ class ResponseController extends Controller
         flash('sdfsdfsdfsdfsdf')->warning();
         flash('sdfsdfsdfsdfsdf')->important();
         return view('home.lara');
+    }
+
+    public function laracasts2()
+    {
+        return view('home.lara');
+    }
+
+    /**
+     * toastr 消息提示
+     * Author huaixiu.zhen
+     * http://litblc.com
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function toastr()
+    {
+        $title = '注意';
+        $message = 'helloodosdf你好';
+        Toastr::warning($message, $title, $options = []);
+        Toastr::error($message, $title, $options = []);
+//        Toastr::info($message, $title = null, $options = []);
+//        Toastr::success($message, $title = null, $options = []);
+        return view('home.lara');
+
     }
 }
