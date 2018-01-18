@@ -11,11 +11,12 @@ namespace App\Http\Controllers\Home;
 
 
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Session;
 
-class HttpController
+class HttpController extends Controller
 {
     public function index()
     {

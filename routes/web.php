@@ -66,4 +66,10 @@ Route::group(['prefix' => 'response', 'namespace' => 'Home'], function() {
     Route::get('laracasts2', 'ResponseController@laracasts2');
 
     Route::get('toastr', 'ResponseController@toastr');
+
+    Route::get('download', 'ResponseController@download');
+});
+
+Route::group(['prefix' => 'session', 'namespace' => 'Home'], function() {
+    Route::get('/', 'SessionController@index');
 });

@@ -104,4 +104,13 @@ class ResponseController extends Controller
         return view('home.lara');
 
     }
+
+    public function download()
+    {
+//        $pathToImage = asset('storage/image/681c9cc807f29085467ff4882fd71133.jpeg');
+//        $name = '681c9cc807f29085467ff4882fd71133.jpeg';
+////        return response()->download($pathToImage, $name);
+//        return response()->file($pathToImage);
+    }
+
 }
