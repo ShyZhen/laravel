@@ -51,7 +51,7 @@ class WelcomeController extends Controller
 
     public function authUser()
     {
-        dd(Auth::user().'<hr>'.Auth::viaRemember());
+        dd(Auth::user().'<hr>'.Auth::viaRemember().'<hr>'.Auth::check());
     }
 
     public function logout()

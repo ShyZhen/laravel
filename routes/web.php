@@ -72,4 +72,12 @@ Route::group(['prefix' => 'response', 'namespace' => 'Home'], function() {
 
 Route::group(['prefix' => 'session', 'namespace' => 'Home'], function() {
     Route::get('/', 'SessionController@index');
+    Route::get('all', 'SessionController@all');
+    Route::get('getSession', 'SessionController@getSession');
+    Route::get('setSession', 'SessionController@setSession');
+});
+
+//    validatesTestController  表单验证
+Route::group(['prefix' => 'valida', 'namespace' => 'Home'], function () {
+    Route::get('/', 'ValidateTestController@index');
 });
