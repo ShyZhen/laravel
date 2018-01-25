@@ -44,7 +44,7 @@ class SessionController extends Controller
         $request->session()->put('ty', 'ttttttttttttttt');
         var_dump($res);
 
-        $res4 =  Redis::set('name:123456', 'huaixiutime', 'EX', 100);
-        $res4 =  Redis::set('name:789456', 'litblc', 'EX', 100);
+        Redis::set('name:123456', 'huaixiutime', 'EX', 10);
+        Redis::set('name:789456', 'litblc', 'EX', 10);
     }
 }

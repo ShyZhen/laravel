@@ -80,4 +80,6 @@ Route::group(['prefix' => 'session', 'namespace' => 'Home'], function() {
 //    validatesTestController  表单验证
 Route::group(['prefix' => 'valida', 'namespace' => 'Home'], function () {
     Route::get('/', 'ValidateTestController@index');
+    Route::get('post/create', 'ValidateTestController@create');
+    Route::post('post/create', 'ValidateTestController@store');
 });

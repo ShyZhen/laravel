@@ -12,4 +12,9 @@ class ValidateTestController extends Controller
     {
         dd('validateTest');
     }
+
+    public function create()
+    {
+        return view('post.create');
+    }
 }
