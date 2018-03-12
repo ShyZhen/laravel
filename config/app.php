@@ -13,7 +13,6 @@ return [
     */
 
     'name' => 'Laravel',
-
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -64,7 +63,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'PRC',
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +76,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ZH-CN',
 
     /*
     |--------------------------------------------------------------------------
@@ -120,7 +119,7 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
+    'log' => env('APP_LOG', 'daily'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
@@ -178,6 +177,14 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Laracasts\Flash\FlashServiceProvider::class,
+        Yuansir\Toastr\ToastrServiceProvider::class,
+
+        /*
+         * 自定义服务提供者
+         */
+        App\Providers\TestServiceProvider::class,
+//        App\Providers\TestServiceProvider2::class,
     ],
 
     /*
@@ -226,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Toastr' => Yuansir\Toastr\Facades\Toastr::class,
     ],
 
 ];

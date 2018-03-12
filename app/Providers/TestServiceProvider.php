@@ -4,21 +4,23 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class TestServiceProvider extends ServiceProvider
 {
+//    protected $defer = true;
+
     /**
-     * Bootstrap any application services.
+     * Bootstrap the application services.
      *
      * @return void
      */
     public function boot()
     {
         //
-        echo '<p>'.date('Y-m-d H:i:s', time()).' 默认服务提供者，已经被注册在config/app.php中</p>';
+        echo '<p>自定义服务提供者，自己注册到app.php中</p>';
     }
 
     /**
-     * Register any application services.
+     * Register the application services.
      *
      * @return void
      */
