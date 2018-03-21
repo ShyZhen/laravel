@@ -27,6 +27,7 @@ class CommentController
         $comments = Comment::where('image_id', $imageId)
             ->whereParentId(0)
             ->orderBy('created_at')
+            //分页处理,取出特定几条
             ->get();
 
         $res = [];
@@ -37,11 +38,11 @@ class CommentController
             $comm['avatar'] = $this->getAvatar($value->user_id);
             $comm['comment'] = $value->content;
             $comm['created_at'] = $value->created_at;
-            $comm['parent'] = $this->getParentComment($value->id);   // 二维数组 所有父级为$value->id的评论
+            $comm['son'] = $this->getSonComment($value->id);   // 多维数组 所有父级为$value->id的评论
             $res[] = $comm;
         }
 
-        dd($res);
+        dd(($res));
     }
 
     /**
@@ -50,7 +51,7 @@ class CommentController
      * @param $userId
      * @return string
      */
-    public function getUserName($userId)
+    private function getUserName($userId)
     {
         $user = User::find($userId);
         if ($user) {
@@ -68,7 +69,7 @@ class CommentController
      * @param $userId
      * @return string
      */
-    public function getAvatar($userId)
+    private function getAvatar($userId)
     {
         $user = User::find($userId);
         if ($user) {
@@ -81,13 +82,13 @@ class CommentController
     }
 
     /**
-     * 得到一级子评论
+     * 递归得到所有子评论
      * Author huaixiu.zhen
      * http://litblc.com
      * @param $commentId
      * @return mixed
      */
-    public function getParentComment($commentId)
+    private function getSonComment($commentId)
     {
         $comments = Comment::whereParentId($commentId)
             ->orderBy('created_at', 'desc')
@@ -102,10 +103,11 @@ class CommentController
                 $comm['avatar'] = $this->getAvatar($value->user_id);
                 $comm['comment'] = $value->content;
                 $comm['created_at'] = $value->created_at;
-                $comm['parent'] = $this->getParentComment($value->id);   // 二维数组 所有父级为$value->id的评论
+                $comm['son'] = $this->getSonComment($value->id);
                 $res[] = $comm;
             }
         }
+
         return $res;
     }
 }
