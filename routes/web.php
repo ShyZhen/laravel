@@ -83,3 +83,7 @@ Route::group(['prefix' => 'valida', 'namespace' => 'Home'], function () {
     Route::get('post/create', 'ValidateTestController@create');
     Route::post('post/create', 'ValidateTestController@store');
 });
+
+Route::group(['namespace' => 'Home'], function () {
+    Route::get('/comment', 'CommentController@getAllComments');
+});

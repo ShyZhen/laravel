@@ -22,7 +22,7 @@ class CreateImagesTable extends Migration
             $table->enum('deleted', ['yes', 'none'])->default('none');
             $table->unsignedInteger('like_num')->default(0);
             $table->unsignedInteger('dislike_num')->default(0);
-            $table->timestamp();
+            $table->timestamps();
         });
     }
 
