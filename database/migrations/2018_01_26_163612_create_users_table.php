@@ -16,6 +16,7 @@ class CreateUsersTable extends Migration
         // 用户表
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('uuid')->index();  // 代替id暴露在外
             $table->string('username', 64)->unique();               // 邮箱、手机等
             $table->string('password', 64);
             $table->string('nickname', 32)->unique();               // 显示的用户昵称，先随机生成UUID，第一次可改

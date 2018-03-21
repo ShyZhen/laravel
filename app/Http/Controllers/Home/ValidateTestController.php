@@ -17,4 +17,16 @@ class ValidateTestController extends Controller
     {
         return view('post.create');
     }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:10',
+            'email' => 'required|max:32',
+        ]);
+
+//        if ()
+        dd();
+    }
+
 }
