@@ -16,6 +16,7 @@ class CreateImagesTable extends Migration
         // 图片表
         Schema::create('images', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('uuid')->index();    // 代替id暴露在外
             $table->unsignedInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('url', 64)->defult('');

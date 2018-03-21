@@ -86,4 +86,5 @@ Route::group(['prefix' => 'valida', 'namespace' => 'Home'], function () {
 
 Route::group(['namespace' => 'Home'], function () {
     Route::get('/comment', 'CommentController@getAllComments');
+//    Route::get('/user', 'CommentController@getUserName');
 });

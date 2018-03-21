@@ -23,6 +23,7 @@ class CreateCommentTable extends Migration
             $table->string('content', 256)->default('');
             $table->unsignedInteger('like_num')->default(0);
             $table->unsignedInteger('dislike_num')->default(0);
+            $table->enum('deleted', ['yes', 'none'])->default('none');
             $table->timestamps();
         });
     }
