@@ -42,7 +42,7 @@ class CommentController
             $res[] = $comm;
         }
 
-        dd(($res));
+        dd($res);
     }
 
     /**

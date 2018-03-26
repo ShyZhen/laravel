@@ -182,9 +182,11 @@ return [
 
         /*
          * 自定义服务提供者
+         * 程序加载时自动加载
          */
         App\Providers\TestServiceProvider::class,
-//        App\Providers\TestServiceProvider2::class,
+        App\Providers\TestServiceProvider2::class,
+        App\Providers\ComposerServiceProvider::class,
     ],
 
     /*

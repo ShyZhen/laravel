@@ -14,7 +14,7 @@ class TestServiceProvider2 extends ServiceProvider
     public function boot()
     {
         //
-        echo 'ssssllllprovider2';
+        echo '程序加载时自动先加载 服务提供者TestServiceProvider2<hr>';
     }
 
     /**

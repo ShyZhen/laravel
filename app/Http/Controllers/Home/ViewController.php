@@ -14,6 +14,11 @@ class ViewController
 {
     public function index()
     {
-        dd('view.');
+        echo ('view');
+    }
+
+    public function test1()
+    {
+        return view('home.test',['a'=>123])->with('b', '456');
     }
 }
