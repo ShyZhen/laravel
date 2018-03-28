@@ -21,4 +21,9 @@ class ViewController
     {
         return view('home.test',['a'=>123])->with('b', '456');
     }
+
+    public function test2()
+    {
+        return view('home.child',['name' => "<script>alert('000')</script>"]);
+    }
 }

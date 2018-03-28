@@ -92,4 +92,5 @@ Route::group(['namespace' => 'Home'], function () {
 Route::group(['namespace' => 'Home', 'prefix' => 'view'], function() {
    Route::get('/', 'ViewController@index');
    Route::get('/test1', 'ViewController@test1');
+   Route::get('/test2', 'ViewController@test2');
 });
