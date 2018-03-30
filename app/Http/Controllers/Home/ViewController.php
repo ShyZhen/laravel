@@ -26,4 +26,9 @@ class ViewController
     {
         return view('home.child',['name' => "<script>alert('000')</script>"]);
     }
+
+    public function css()
+    {
+        return view('home.css');
+    }
 }

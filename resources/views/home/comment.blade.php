@@ -19,6 +19,7 @@
             @endforeach
         @endif
     @endforeach
-
+    {{trans('front.test')}}
+    @lang('front.test')
 @endsection
 
