@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class TestServiceProvider extends ServiceProvider
@@ -16,7 +17,9 @@ class TestServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        echo '<p>自定义服务提供者，自己注册到app.php中</p>';
+        //echo '<p>自定义服务提供者TestServiceProvider，自己注册到app.php中</p>';
+        View::share('shareValue1', 'huaixiu.zhen');
+        view()->share('shareValue2', 'litblc.com');
     }
 
     /**

@@ -7,6 +7,20 @@ use App\Http\Controllers\Controller;
 
 class ValidateTestController extends Controller
 {
+
+
+    private function VerifyToken(Request $request, $rules)
+    {
+        $validator = $this->validate($request, $rules);
+        if ($validator->fails()) {
+
+            return [
+                'status_code' => 0,
+                'message' => trans('mobile.params_error')
+            ];
+        }
+    }
+
     //
     public function index()
     {
@@ -20,13 +34,21 @@ class ValidateTestController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validate = $this->validate($request, [
             'name' => 'required|max:10',
             'email' => 'required|max:32',
+        ],[
+            'name.required' => '名字bixu必须',
+            'email.required' => '邮箱必须',
         ]);
 
-//        if ()
-        dd();
+//        $rules = [
+//            'name' => 'required|max:10',
+//            'email' => 'required|max:32',
+//        ];
+//        $validate = $this->VerifyToken($request, $rules);
+
+        dd($validate);
     }
 
 }

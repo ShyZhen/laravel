@@ -37,12 +37,13 @@ class CommentController
             $comm['username'] = $this->getUserName($value->user_id);
             $comm['avatar'] = $this->getAvatar($value->user_id);
             $comm['comment'] = $value->content;
-            $comm['created_at'] = $value->created_at;
+            $comm['created_at'] = $value->created_at->format('Y-m-d H:i:s');
             $comm['son'] = $this->getSonComment($value->id);   // 多维数组 所有父级为$value->id的评论
             $res[] = $comm;
         }
 
-        dd(($res));
+        //dd($res);
+        return view('home.comment')->with('comments', $res);
     }
 
     /**
@@ -102,7 +103,7 @@ class CommentController
                 $comm['username'] = $this->getUserName($value->user_id);
                 $comm['avatar'] = $this->getAvatar($value->user_id);
                 $comm['comment'] = $value->content;
-                $comm['created_at'] = $value->created_at;
+                $comm['created_at'] = $value->created_at->format('Y-m-d H:i:s');
                 $comm['son'] = $this->getSonComment($value->id);
                 $res[] = $comm;
             }

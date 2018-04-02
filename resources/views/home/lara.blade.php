@@ -11,7 +11,7 @@
         {{--<input type="hidden" name="_token" value="{{csrf_token()}}">--}}
         <input type="file" name="filetxt">
         <input type="file" name="fileimg">
-        <input type="submit" value="提交">
+        <input type="submit" value="提d交">
     </form>
 
     {{-- Toastr消息提示 --}}

@@ -69,7 +69,7 @@ class WelcomeController extends Controller
 //        dd($bool);
 
         $str = Hash::make('huaixiu');
-        dd($str);
+        return view('home/index', ['str' => $str]);
     }
 
     public function getCache()

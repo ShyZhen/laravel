@@ -76,7 +76,8 @@ return [
     |
     */
 
-    'locale' => 'ZH-CN',
+    'locale' => 'zh-CN',
+    //'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -182,9 +183,12 @@ return [
 
         /*
          * 自定义服务提供者
+         * 程序加载时自动加载
+         * 不要有输出，否则会打乱前端html架构
          */
         App\Providers\TestServiceProvider::class,
-//        App\Providers\TestServiceProvider2::class,
+        App\Providers\TestServiceProvider2::class,
+        App\Providers\ComposerServiceProvider::class,
     ],
 
     /*
