@@ -1,25 +1,33 @@
-<html>
+<!doctype html>
+<html lang="zh-CN">
 <head>
     <title>@yield('title')</title>
-    {{--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">--}}
-    {{--<script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>--}}
-
+    <meta charset="utf-8">
     {{--默认集成bootcss和vue脚手架--}}
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <script src="{{asset('js/app.js')}}"></script>
+    <link rel="stylesheet" href="{{elixir('css/app.css')}}">
+    <script src="{{elixir('js/app.js')}}"></script>
 </head>
 <body>
-    @section('sidebar')
-        这里是侧边栏sidebar
-    @show
+<div id="main" class="main">
 
-    <div class="container">
-
-       {{--@yield('content')--}}    {{--  占位符，@section完全覆盖  --}}
-
-        @section('content')        {{--  @section完全覆盖，如果有@parent则是追加  --}}
-            这里是内容content
+    <div id="sidebar" class="sidebar">
+        @section('sidebar')
+            layout sidebar
         @show
     </div>
+
+    <div id="container" class="container">
+       {{--@yield('content')--}}    {{--  占位符，@section完全覆盖  --}}
+        @section('content')        {{--  @section完全覆盖，如果有@parent则是追加  --}}
+            layout content
+        @show
+    </div>
+
+    <div id="footer" class="footer">
+        @section('footer')
+            layout footer
+        @show
+    </div>
+</div>
 </body>
 </html>

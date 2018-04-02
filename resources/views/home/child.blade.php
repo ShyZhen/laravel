@@ -3,10 +3,8 @@
 @section('title', 'Page Title 标题')
 
 @section('sidebar')
-
-    <p>子侧边栏</p>
     @parent   {{-- 输出父级，追加内容，不使用该命令则覆盖父级 --}}
-
+    <p>子侧边栏</p>
 @endsection
 
 @section('content')

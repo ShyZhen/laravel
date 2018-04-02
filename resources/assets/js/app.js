@@ -6,6 +6,8 @@
  */
 
 require('./bootstrap');
+require('./test');
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,6 +17,14 @@ require('./bootstrap');
 
 Vue.component('example', require('./components/Example.vue'));
 
-const app = new Vue({
-    el: '#app'
-});
+window.onload = function () {
+    const vue = new Vue({
+        el: '#main',
+
+        data: {
+            message: 'Hello Litblc!'
+        },
+
+    });
+};
+
