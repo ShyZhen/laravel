@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
+    <meta charset="utf-8">
+    <meta name="csrf-token" id="csrfToken" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <meta charset="utf-8">
-    {{--默认集成bootcss和vue脚手架--}}
     <link rel="stylesheet" href="{{elixir('css/app.css')}}">
-
 </head>
 <body>
 @include('__layout.flashmessage')

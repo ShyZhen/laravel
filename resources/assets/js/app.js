@@ -6,7 +6,8 @@
  */
 
 require('./bootstrap');
-require('./test');
+//require('./test');  // 放在bootstrap中引入
+
 
 
 /**
@@ -15,13 +16,14 @@ require('./test');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
-
+//Vue.component('example', require('./components/Example.vue'));
 //window.onload = function () {
 
 Vue.component('my-component', {
     template: '<div><h1>全局组件</h1></div>'
 });
+
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrfToken').getAttribute('content');
 
     const app = new Vue({
         el: '#main',
@@ -68,24 +70,72 @@ Vue.component('my-component', {
                 { text: 'Three', value: 'C' }
             ],
 
+            accoutUsername: '',
+            accoutPassword: '',
+
 
 
 
         },
 
         methods: {
-            reverseMessage:function () {
+            toastMessage: function(type, msg){
+                toastr.options = {
+                    "closeButton":true,
+                    "debug":false,
+                    "newestOnTop":true,
+                    "progressBar":false,
+                    "positionClass":"toast-top-right",
+                    "preventDuplicates":false,
+                    "onclick":null,
+                    "showDuration":"300",
+                    "hideDuration":"500",
+                    "timeOut":"2000",
+                    "extendedTimeOut":"1000",
+                    "showEasing":"swing",
+                    "hideEasing":"linear",
+                    "showMethod":"fadeIn",
+                    "hideMethod":"fadeOut"
+                };
+                if (type == 'error') {
+                    toastr.error(msg, '');
+                }else{
+                    toastr.success(msg, '');
+                }
+            },
+            reverseMessage: function () {
                 this.vonmessage = '转换后'
             },
-            alertThisVal:function () {
+            alertThisVal: function () {
                 alert(this.message)
             },
-            submitEvent:function () {
+            submitEvent: function () {
                 this.isButtonDisabled = true;
             },
-            checkboxSubmit:function () {
+            checkboxSubmit: function () {
                 console.log(this.check);
                 console.log(this.radio.sex);
+            },
+            userLogin: function () {
+                var data = {
+                    username: this.accoutUsername,
+                    password: this.accoutPassword,
+                };
+                this.$http.post('/auth/login', data).then(function(response){
+                    if (response.body.status_code == 1) {
+                        //toastr.error(response.body.message);
+                        this.toastMessage('success', response.body.message);
+
+                    } else {
+                        //toastr.error(response.body.message);
+                        this.toastMessage('success',response.body.message);
+                    }
+                }, function (response){
+                    //toastr.error('Server Error 500');
+                    this.toastMessage('success','Server Error 500');
+                })
+
+
             }
         },
 
