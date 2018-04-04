@@ -13,7 +13,6 @@
 
     {{ $name or '默认名字（三元运算）' }}
 
-    @{{ (name) }}
     <br>
 
     {{ var_dump(Auth::check()) }}   {{--/attempt 登录返回true；  /logout 注销返回false--}}

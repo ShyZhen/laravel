@@ -7657,4 +7657,12 @@ button.close {
   color: deeppink;
 }
 
+[v-cloak] {
+  display: none;
+}
+
+.active {
+  color: red;
+}
+
 /*# sourceMappingURL=app.css.map */

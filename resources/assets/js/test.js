@@ -12,6 +12,8 @@ $(function(){
     }
 });
 
+
+
 accountLogin = function () {
     alert('登录')
 };
