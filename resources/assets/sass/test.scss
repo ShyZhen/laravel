@@ -5,3 +5,11 @@
 .container:hover {
   color: deeppink;
 }
+
+[v-cloak] {
+  display: none;
+}
+
+.active {
+  color: red;
+}

@@ -95,3 +95,8 @@ Route::group(['namespace' => 'Home', 'prefix' => 'view'], function() {
    Route::get('/test2', 'ViewController@test2');
    Route::get('/css', 'ViewController@css');
 });
+
+Route::group(['namespace' => 'Home', 'prefix' => 'auth'], function() {
+    Route::get('/login', 'AuthController@login');
+    Route::post('/login', 'AuthController@postLogin');
+});

@@ -10,6 +10,8 @@
 namespace App\Http\Controllers\Home;
 
 
+use Yuansir\Toastr\Facades\Toastr;
+
 class ViewController
 {
     public function index()
@@ -29,6 +31,8 @@ class ViewController
 
     public function css()
     {
+        flash('成功了!!!')->success();
+        Toastr::success('您已成功搞定', '成功', $options = []);
         return view('home.css');
     }
 }

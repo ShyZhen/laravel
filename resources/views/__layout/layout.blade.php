@@ -1,14 +1,15 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
+    <meta charset="utf-8">
+    <meta name="csrf-token" id="csrfToken" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
     <meta charset="utf-8">
-    {{--默认集成bootcss和vue脚手架--}}
     <link rel="stylesheet" href="{{elixir('css/app.css')}}">
-    <script src="{{elixir('js/app.js')}}"></script>
 </head>
 <body>
-<div id="main" class="main">
+@include('__layout.flashmessage')
+<div id="main" class="main" v-cloak>
 
     <div id="sidebar" class="sidebar">
         @section('sidebar')
@@ -29,5 +30,15 @@
         @show
     </div>
 </div>
+<script src="{{elixir('js/app.js')}}"></script>
+
+<script>
+    {{--flash提示框自动消失,--}}
+    $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+</script>
+
+{!! Toastr::render() !!}
+@yield('js')
+
 </body>
 </html>

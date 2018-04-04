@@ -11,3 +11,9 @@ $(function(){
         alert('789不好使？');
     }
 });
+
+
+
+accountLogin = function () {
+    alert('登录')
+};
