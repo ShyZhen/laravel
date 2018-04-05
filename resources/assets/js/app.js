@@ -119,6 +119,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrfToken').g
             userLogin: function () {
                 //test.test123();
                 //test2.test123();
+                
                 var data = {
                     username: this.accoutUsername,
                     password: this.accoutPassword,
