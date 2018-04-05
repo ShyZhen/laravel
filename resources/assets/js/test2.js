@@ -5,19 +5,19 @@ define (function(){
     var accountLogin;
 
     test123 = function () {
-        alert('test.js都在app.js引入即可，类似app.scss一样!');
+        alert('test2@!!!!!!!!!!!');
     };
 
     function test456() {
-        alert('456');
+        alert('456 of test 2222222222');
     }
 
     function test789() {
-        alert('789');
+        alert('789 of test 2222222222');
     }
 
     accountLogin = function () {
-        alert('登录')
+        alert('登录 of test 2222222222')
     };
 
     return {

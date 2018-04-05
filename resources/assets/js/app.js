@@ -9,7 +9,6 @@ require('./bootstrap');
 //require('./test');  // 放在bootstrap中引入
 
 
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -20,7 +19,7 @@ require('./bootstrap');
 //window.onload = function () {
 
 Vue.component('my-component', {
-    template: '<div><h1>全局组件</h1></div>'
+    template: '<div><h1>全局组件测试</h1></div>'
 });
 
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrfToken').getAttribute('content');
@@ -116,22 +115,25 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrfToken').g
                 console.log(this.check);
                 console.log(this.radio.sex);
             },
+
             userLogin: function () {
+                //test.test123();
+                //test2.test123();
                 var data = {
                     username: this.accoutUsername,
                     password: this.accoutPassword,
                 };
                 this.$http.post('/auth/login', data).then(function(response){
                     if (response.body.status_code == 1) {
-                        //toastr.error(response.body.message);
+                        toastr.error(response.body.message);
                         this.toastMessage('success', response.body.message);
 
                     } else {
-                        //toastr.error(response.body.message);
+                        toastr.error(response.body.message);
                         this.toastMessage('success',response.body.message);
                     }
                 }, function (response){
-                    //toastr.error('Server Error 500');
+                    toastr.error('Server Error 500');
                     this.toastMessage('success','Server Error 500');
                 })
 

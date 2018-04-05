@@ -20,9 +20,12 @@ window.Vue = require('vue');
 require('vue-resource');
 
 
-//个人自定义插件 npm install
-require('./test');
+//个人自定义js插件 以及 npm install 可以避免变量名重复引发的血案
+window.test = require('./test');
+window.test2 = require('./test2');
 window.toastr = require('toastr');
+
+
 
 /**
  * We'll register a HTTP interceptor to attach the "CSRF" header to each of

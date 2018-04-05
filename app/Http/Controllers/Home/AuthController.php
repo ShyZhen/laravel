@@ -20,6 +20,7 @@ class AuthController extends Controller
 
     public function login (Request $request)
     {
+        //session()->flush();  // 防止其他页面调用的toastr方法遗留下来的session,只有快速切换时会出现影响
         return view('home.login');
     }
     public function postLogin (Request $request)
@@ -27,8 +28,8 @@ class AuthController extends Controller
         $username = $request->username;
         $password = $request->password;
         $remember = $request->remember or false;
-        $user = User::where('name', $username)->first();
-        if ($user && $user->closure == 'none') {
+        $user = User::where('name', $username);
+        if ($user->first() && $user->closure == 'none') {
             if (Auth::attempt(['name' => $username, 'password' => $password], $remember)) {
                 return response()->json([
                     'status_code' => 1,
