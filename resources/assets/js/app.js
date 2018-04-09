@@ -124,21 +124,29 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrfToken').g
                     username: this.accoutUsername,
                     password: this.accoutPassword,
                 };
-                this.$http.post('/auth/login', data).then(function(response){
-                    if (response.body.status_code == 1) {
-                        toastr.error(response.body.message);
-                        this.toastMessage('success', response.body.message);
-
-                    } else {
-                        toastr.error(response.body.message);
-                        this.toastMessage('success',response.body.message);
-                    }
-                }, function (response){
-                    toastr.error('Server Error 500');
-                    this.toastMessage('success','Server Error 500');
-                })
+                if (data.username && data.password) {
 
 
+
+                    this.$http.post('/auth/login', data).then(function(response){
+                        if (response.body.status_code == 1) {
+                            toastr.error(response.body.message);
+                            this.toastMessage('success', response.body.message);
+
+                        } else {
+                            toastr.error(response.body.message);
+                            this.toastMessage('success',response.body.message);
+                        }
+                    }, function (response){
+                        toastr.error('Server Error 500');
+                        this.toastMessage('success','Server Error 500');
+                    })
+
+
+
+                } else {
+                    this.toastMessage('success', '用户名和密码不为空');
+                }
             }
         },
 
