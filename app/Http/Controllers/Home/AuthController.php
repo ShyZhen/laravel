@@ -29,7 +29,7 @@ class AuthController extends Controller
         $password = $request->password;
         $remember = $request->remember or false;
         $user = User::where('name', $username);
-        if ($user->first() && $user->closure == 'none') {
+        if ($user->first() && $user->first()->closure == 'none') {
             if (Auth::attempt(['name' => $username, 'password' => $password], $remember)) {
                 return response()->json([
                     'status_code' => 1,
