@@ -4,7 +4,7 @@
 <div class="content">
 
     <div class="col-lg-6">
-        <form action="">
+        <form>
             <div class="form-group">
                 <label for="username">用户名:</label>
                 <input type="text" id="username" class="form-control" v-model="accoutUsername" placeholder="username" required>

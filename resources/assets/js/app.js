@@ -130,6 +130,9 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrfToken').g
                         if (response.body.status_code == 1) {
                             //toastr.success(response.body.message);
                             this.toastMessage('success', response.body.message);
+                            setTimeout(function(){
+                                location.href = response.body.url;
+                            },1000);
 
                         } else {
                             //toastr.error(response.body.message);

@@ -33,7 +33,8 @@ class AuthController extends Controller
             if (Auth::attempt(['name' => $username, 'password' => $password], $remember)) {
                 return response()->json([
                     'status_code' => 1,
-                    'message' => '登录成功'
+                    'message' => '登录成功',
+                    'url' => asset('home/userinfo')
                 ]);
             } else {
                 return response()->json([
