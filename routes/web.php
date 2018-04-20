@@ -96,8 +96,15 @@ Route::group(['namespace' => 'Home', 'prefix' => 'view'], function() {
    Route::get('/css', 'ViewController@css');
 });
 
+
+// test over;
+
 Route::group(['namespace' => 'Home', 'prefix' => 'auth'], function() {
     Route::get('/', 'WelcomeController@authUser');
     Route::get('/login', 'AuthController@login');
     Route::post('/login', 'AuthController@postLogin');
+});
+
+Route::group(['namespace' => 'Home', 'prefix' => 'home', 'middleware' => ['web', 'home.auth']], function() {
+   Route::get('/index', 'IndexController@index');
 });

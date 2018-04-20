@@ -21,7 +21,15 @@ class AuthController extends Controller
     public function login (Request $request)
     {
         //session()->flush();  // 防止其他页面调用的toastr方法遗留下来的session,只有快速切换时会出现影响
-        return view('home.login');
+
+        if (Auth::guest()) {
+
+            return view('home.login');
+        } else {
+
+            return redirect('/home/index');
+        }
+
     }
     public function postLogin (Request $request)
     {
@@ -30,11 +38,11 @@ class AuthController extends Controller
         $remember = $request->remember or false;
         $user = User::where('name', $username);
         if ($user->first() && $user->first()->closure == 'none') {
-            if (Auth::attempt(['name' => $username, 'password' => $password], $remember)) {
+            if (Auth::attempt(['name' => $username, 'password' => $password], true)) {
                 return response()->json([
                     'status_code' => 1,
                     'message' => '登录成功',
-                    'url' => asset('home/userinfo')
+                    'url' => asset('home/index')
                 ]);
             } else {
                 return response()->json([
