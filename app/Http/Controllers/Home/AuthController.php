@@ -13,6 +13,8 @@ use App\Http\Controllers\Controller;
 use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 
 class AuthController extends Controller
@@ -33,6 +35,19 @@ class AuthController extends Controller
     }
     public function postLogin (Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'username' => 'required|max:12',
+            'password' => 'required|max:16',
+        ]);
+
+        if ($validator->fails()) {
+
+            return response()->json([
+                'status_code' => 0,
+                'message' => $validator->errors()->first()
+            ]);
+        }
+
         $username = $request->username;
         $password = $request->password;
         $remember = $request->remember or false;
@@ -54,6 +69,22 @@ class AuthController extends Controller
             return response()->json([
                 'status_code' => 0,
                 'message' => '用户不存在或者已冻结'
+            ]);
+        }
+    }
+
+
+    public function register (Request $request)
+    {
+        if ($request->isMethod('get')) {
+            echo 'get';
+        } elseif ($request->isMethod('POST')) {
+            echo 'post';
+        } else {
+
+            return response()->json([
+                'status_code' => 405,
+                'message' => 'Method Not Allowed'
             ]);
         }
     }

@@ -23,9 +23,6 @@ class IndexController
 
     public function index ()
     {
-        dd(Auth::guard()->guest());
-        dd(Auth::check());
-
-
+        dd(Auth::user());
     }
 }

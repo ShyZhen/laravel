@@ -103,6 +103,8 @@ Route::group(['namespace' => 'Home', 'prefix' => 'auth'], function() {
     Route::get('/', 'WelcomeController@authUser');
     Route::get('/login', 'AuthController@login');
     Route::post('/login', 'AuthController@postLogin');
+    Route::get('/register', 'AuthController@register');
+    Route::post('/register', 'AuthController@register');
 });
 
 Route::group(['namespace' => 'Home', 'prefix' => 'home', 'middleware' => ['web', 'home.auth']], function() {
