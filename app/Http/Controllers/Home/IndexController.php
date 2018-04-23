@@ -10,6 +10,7 @@
 namespace App\Http\Controllers\Home;
 
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class IndexController
@@ -18,5 +19,10 @@ class IndexController
     {
         $a = '初始化数据';
         $view->with('a', $a);
+    }
+
+    public function index ()
+    {
+        dd(Auth::user());
     }
 }
