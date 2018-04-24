@@ -23,6 +23,8 @@ class IndexController
 
     public function index ()
     {
-        dd(Auth::user());
+        $user = Auth::user();
+
+        return view('home.index')->with('user', $user);
     }
 }

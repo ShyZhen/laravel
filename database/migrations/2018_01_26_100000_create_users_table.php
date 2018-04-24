@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('uuid')->index();  // 代替id暴露在外
             $table->string('username', 64)->unique();               // 邮箱、手机等
-            $table->string('password', 64);
+            $table->string('password', 255);
             $table->rememberToken();
             $table->string('nickname', 32)->unique();               // 显示的用户昵称，先随机生成UUID，第一次可改
             $table->string('header_url', 128)->default('');         // 没设置既使用默认头像
