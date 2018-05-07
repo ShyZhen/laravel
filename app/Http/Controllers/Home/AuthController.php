@@ -50,14 +50,14 @@ class AuthController extends Controller
 
         $email = $request->email;
         $password = $request->password;
-        $remember = $request->remember or false;
+        $remember = $request->remember;
         $user = User::where('email', $email);
         if ($user->first() && $user->first()->closure == 'none') {
-            if (Auth::attempt(['email' => $email, 'password' => $password], true)) {
+            if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
 
                 return response()->json([
                     'status_code' => 1,
-                    'message' => '登录成功',
+                    'message' => '登录成功'.(Auth::viaRemember()),
                     'url' => asset('home/index')
                 ]);
             } else {
@@ -77,6 +77,12 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * Author huaixiu.zhen
+     * http://litblc.com
+     * @param Request $request
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
     public function register (Request $request)
     {
         if ($request->isMethod('get')) {
@@ -101,7 +107,9 @@ class AuthController extends Controller
                     'email' => $request->get('email'),
                 ]);
 
-                dd($register.password_hash($request->get('password'), PASSWORD_DEFAULT));
+                Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')], true);
+                return redirect('home/index');
+                //dd($register.password_hash($request->get('password'), PASSWORD_DEFAULT));
             }
 
         } else {
