@@ -111,3 +111,4 @@ Route::group(['namespace' => 'Home', 'prefix' => 'home', 'middleware' => ['web',
    Route::get('/index', 'IndexController@index');
    Route::get('/user/{user}', 'IndexController@userInfo');
 });
+Route::get('/send', 'Home\IndexController@sendEmail');
