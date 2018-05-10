@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ trans('front.fenke') }}({{ trans('front.verify_code') }})</title>
+    <title>测试邮件模板</title>
 </head>
 <body>
-456
+456344
 <hr>
-123
-{{ $name }}
+123444
+{{ $data }}
 </body>
 </html>

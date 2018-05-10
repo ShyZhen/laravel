@@ -32,8 +32,18 @@ class IndexController
         return view('home.index')->with(['user' => $user, 'remember' => $remember]);
     }
 
-    public function userInfo (User $user)
+    /**
+     * 测试依赖注入和参数传递
+     * Author huaixiu.zhen
+     * http://litblc.com
+     * @param User $user
+     * @param $id
+     * @param Request $request
+     * @return $this
+     */
+    public function userInfo (User $user, $id, Request $request)
     {
+        dd($request->get('a').$id.$user);
         return view('home.userInfo')->with(['user' => $user]);
     }
 
@@ -44,24 +54,19 @@ class IndexController
         return $test1;
     }
 
+    /**
+     * 发送邮件
+     * Author huaixiu.zhen
+     * http://litblc.com
+     */
     public function sendEmail ()
     {
-//        $order = Order::findOrFail($orderId);
-//        Mail::to($request->user())->send(new OrderShipped($order));
-//
-//        $data = ['email'=>'835433343@qq.com', 'name'=>'testss', 'uid'=>123, 'activationcode'=>123456789];
-//        Mail::send('__layout/email', $data, function($message) use($data)
-//        {
-//            $message->to($data['email'], $data['name'])->subject('欢迎注册我们的网站，请激活您的账号！');
-//        });
-
-//        Mail::Raw('Hello World', function ($message) {
-//            $message->to('835433343@qq.com')->subject('这是新邮件');
-//        });
-        Mail::send('__layout.email', ['name' => 'Hello World'], function ($message) {
-            $message->to('835433343@qq.com')->subject('您有新邮件3');
+        Mail::send('__layout.email', ['data' => '验证码：444'], function ($message) {
+            $message->to('835433343@qq.com')->subject('萌面怪兽验证码服务');
         });
     }
+
+
 
 
 
