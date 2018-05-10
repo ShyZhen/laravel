@@ -36,8 +36,8 @@ class AuthController extends Controller
     public function postLogin (Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'username' => 'required|max:12',
-            'password' => 'required|max:16',
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:6|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -48,24 +48,27 @@ class AuthController extends Controller
             ]);
         }
 
-        $username = $request->username;
+        $email = $request->email;
         $password = $request->password;
-        $remember = $request->remember or false;
-        $user = User::where('name', $username);
+        $remember = $request->remember;
+        $user = User::where('email', $email);
         if ($user->first() && $user->first()->closure == 'none') {
-            if (Auth::attempt(['name' => $username, 'password' => $password], true)) {
+            if (Auth::attempt(['email' => $email, 'password' => $password], $remember)) {
+
                 return response()->json([
                     'status_code' => 1,
-                    'message' => '登录成功',
+                    'message' => '登录成功'.(Auth::viaRemember()),
                     'url' => asset('home/index')
                 ]);
             } else {
+
                 return response()->json([
                     'status_code' => 0,
                     'message' => '密码错误'
                 ]);
             }
         } else {
+
             return response()->json([
                 'status_code' => 0,
                 'message' => '用户不存在或者已冻结'
@@ -74,12 +77,41 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * Author huaixiu.zhen
+     * http://litblc.com
+     * @param Request $request
+     * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
     public function register (Request $request)
     {
         if ($request->isMethod('get')) {
-            echo 'get';
+
+            return view('auth.register');
         } elseif ($request->isMethod('POST')) {
-            echo 'post';
+
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|max:16',
+                'email' => 'required|email|max:255|unique:users',
+                'password' => 'required|min:6|max:255|confirmed',
+            ]);
+            if ($validator->fails()) {
+
+                return view('auth.register')->with('errors', $validator->errors());
+            } else {
+
+                $register = User::create([
+                    'name' => $request->get('name'),
+                    //'password' => password_hash($request->get('password'), PASSWORD_DEFAULT),
+                    'password' => bcrypt($request->get('password')),
+                    'email' => $request->get('email'),
+                ]);
+
+                Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')], true);
+                return redirect('home/index');
+                //dd($register.password_hash($request->get('password'), PASSWORD_DEFAULT));
+            }
+
         } else {
 
             return response()->json([
@@ -87,6 +119,13 @@ class AuthController extends Controller
                 'message' => 'Method Not Allowed'
             ]);
         }
+    }
+
+
+    public function logout ()
+    {
+        $bool = Auth::logout();
+        return redirect('/auth/login');
     }
 
 }

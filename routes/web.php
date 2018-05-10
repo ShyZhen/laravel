@@ -18,7 +18,6 @@ Route::get('/', function () {
 Route::group(['namespace' => 'Home'], function() {
    Route::get('attempt', 'WelcomeController@attempt');
 
-   Route::get('logout', 'WelcomeController@logout');
    Route::get('index', 'WelcomeController@index');
    Route::get('getCache', 'WelcomeController@getCache');
    Route::get('putCache', 'WelcomeController@putCache');
@@ -105,8 +104,11 @@ Route::group(['namespace' => 'Home', 'prefix' => 'auth'], function() {
     Route::post('/login', 'AuthController@postLogin');
     Route::get('/register', 'AuthController@register');
     Route::post('/register', 'AuthController@register');
+    Route::post('logout', 'AuthController@logout');
 });
 
 Route::group(['namespace' => 'Home', 'prefix' => 'home', 'middleware' => ['web', 'home.auth']], function() {
    Route::get('/index', 'IndexController@index');
+   Route::get('/user/{user}', 'IndexController@userInfo');
 });
+Route::get('/send', 'Home\IndexController@sendEmail');

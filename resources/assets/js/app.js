@@ -71,6 +71,7 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrfToken').g
 
             accoutUsername: '',
             accoutPassword: '',
+            accoutRemember: '',
 
 
 
@@ -121,8 +122,9 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrfToken').g
                 //test2.test123();
                 
                 var data = {
-                    username: this.accoutUsername,
+                    email: this.accoutUsername,
                     password: this.accoutPassword,
+                    remember: this.accoutRemember,
                 };
                 if (this.accoutUsername && this.accoutPassword) {
 
