@@ -108,7 +108,12 @@ Route::group(['namespace' => 'Home', 'prefix' => 'auth'], function() {
 });
 
 Route::group(['namespace' => 'Home', 'prefix' => 'home', 'middleware' => ['web', 'home.auth']], function() {
+    // 测试
+    Route::get('/user/{user}/info/{id}', 'IndexController@userInfo');
+    Route::get('/send', 'IndexController@sendEmail');
+
+
    Route::get('/index', 'IndexController@index');
-   Route::get('/user/{user}', 'IndexController@userInfo');
+
 });
-Route::get('/send', 'Home\IndexController@sendEmail');
+
