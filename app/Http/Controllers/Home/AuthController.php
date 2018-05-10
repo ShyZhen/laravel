@@ -10,11 +10,12 @@
 namespace App\Http\Controllers\Home;
 
 use App\Http\Controllers\Controller;
+use App\Model\PasswordReset;
 use App\Model\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use Yuansir\Toastr\Facades\Toastr;
 
 
 class AuthController extends Controller
@@ -26,7 +27,7 @@ class AuthController extends Controller
 
         if (Auth::guest()) {
 
-            return view('home.login');
+            return view('auth.login');
         } else {
 
             return redirect('/home/index');
@@ -85,9 +86,17 @@ class AuthController extends Controller
      */
     public function register (Request $request)
     {
-        if ($request->isMethod('get')) {
+        if ($request->isMethod('GET')) {
 
-            return view('auth.register');
+            if (Auth::guest()) {
+
+                return view('auth.register');
+            } else {
+
+                return redirect('/home/index');
+            }
+
+
         } elseif ($request->isMethod('POST')) {
 
             $validator = Validator::make($request->all(), [
@@ -108,6 +117,9 @@ class AuthController extends Controller
                 ]);
 
                 Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')], true);
+
+                //flash('注册成功')->success();
+                Toastr::success('注册成功', $options = []);
                 return redirect('home/index');
                 //dd($register.password_hash($request->get('password'), PASSWORD_DEFAULT));
             }
@@ -127,5 +139,68 @@ class AuthController extends Controller
         $bool = Auth::logout();
         return redirect('/auth/login');
     }
+
+
+    public function resetPassword (Request $request)
+    {
+        if ($request->isMethod('GET')) {
+
+            return view('auth.passwords.reset');
+        } elseif ($request->isMethod('POST')) {
+
+//          $preg_tel = '/^1[3|4|5|8|7][0-9]\d{8}$/';
+//          $preg_email = '/\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/';
+            $validator = Validator::make($request->all(), [
+                'email' => 'required|email|max:255',
+            ]);
+
+            if ($validator->fails()) {
+
+                return response()->json([
+                    'status_code' => 0,
+                    'message' => $validator->errors()->first()
+                ]);
+            }
+
+            $email = $request->get('email');
+            $user = User::where('email', $email)->first();
+            if ($user) {
+                $code = str_pad(mt_rand(0, 999999), 6, "0", STR_PAD_BOTH);
+                $reset = PasswordReset::updateOrInsert([
+                    'email' => $email
+                ],[
+                    'email' => $email,
+                    'token' => $code,
+                    'created_at' => time()
+                ]);
+
+                $data = [
+                    'data' => '验证码:'.$code.'如果这不是您的邮件，请不必担心，该来的迟早会来'
+                ];
+                $subject = '萌面怪兽忘记密码服务';
+                $mail = $this->sendEmail($email, $data, $subject);
+                if ($mail) {
+
+                    return response()->json([
+                        'status_code' => 1,
+                        'message' => '已成功发送邮件'
+                    ]);
+                }
+
+                return response()->json([
+                    'status_code' => 0,
+                    'message' => '请重试'
+                ]);
+
+            } else {
+
+                return response()->json([
+                    'status_code' => 404,
+                    'message' => '没有此用户'
+                ]);
+            }
+        }
+    }
+
 
 }
