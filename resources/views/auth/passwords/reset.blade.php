@@ -56,11 +56,87 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Reset Password
+                                   发送验证码
                                 </button>
                             </div>
                         </div>
                     </form>
+
+
+<hr>
+
+
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('auth/password/') }}">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="PUT">
+
+                        <div class="form-group has-error">
+                            <label for="verify_code" class="col-md-4 control-label">验证码</label>
+
+                            <div class="col-md-6">
+                                <input id="verify_code" type="number" class="form-control" name="verify_code" required>
+
+                                @if ($errors->has('verify_code'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('verify_code') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}" required placeholder="前端提供，这里仅为测试方便">
+
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <label for="password" class="col-md-4 control-label">Password</label>
+
+                        <div class="col-md-6">
+                        <input id="password" type="password" class="form-control" name="password" required>
+
+                        @if ($errors->has('password'))
+                        <span class="help-block">
+                        <strong>{{ $errors->first('password') }}</strong>
+                        </span>
+                        @endif
+                        </div>
+                        </div>
+
+                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                        <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                        <div class="col-md-6">
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+
+                        @if ($errors->has('password_confirmation'))
+                        <span class="help-block">
+                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                        </span>
+                        @endif
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <button type="submit" class="btn btn-primary">
+                                    重置密码
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+
+
+
                 </div>
             </div>
         </div>

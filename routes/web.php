@@ -107,6 +107,7 @@ Route::group(['namespace' => 'Home', 'prefix' => 'auth'], function() {
     Route::post('logout', 'AuthController@logout');
     Route::get('/password', 'AuthController@resetPassword');
     Route::post('/password', 'AuthController@resetPassword');
+    Route::put('/password', 'AuthController@password');
 });
 
 Route::group(['namespace' => 'Home', 'prefix' => 'home', 'middleware' => ['web', 'home.auth']], function() {

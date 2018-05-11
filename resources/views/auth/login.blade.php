@@ -30,7 +30,7 @@
                 <button type="submit" class="btn btn-default" v-on:click.prevent="userLogin">Submit</button>
             </div>
             <div class="form-group">
-                <a href="{{ url('/auth/password') }}">重置密码</a>
+                <a href="{{ url('/auth/password') }}">忘记密码</a>
             </div>
         </form>
     </div>

@@ -141,11 +141,25 @@ class AuthController extends Controller
     }
 
 
+    /**
+     * 发送验证码
+     * Author huaixiu.zhen
+     * http://litblc.com
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
+     */
     public function resetPassword (Request $request)
     {
         if ($request->isMethod('GET')) {
 
-            return view('auth.passwords.reset');
+            if (Auth::guest()) {
+
+                return view('auth.passwords.reset');
+            } else {
+
+                return redirect('/home/index');
+            }
+
         } elseif ($request->isMethod('POST')) {
 
 //          $preg_tel = '/^1[3|4|5|8|7][0-9]\d{8}$/';
@@ -157,7 +171,7 @@ class AuthController extends Controller
             if ($validator->fails()) {
 
                 return response()->json([
-                    'status_code' => 0,
+                    'status_code' => 400,
                     'message' => $validator->errors()->first()
                 ]);
             }
@@ -182,13 +196,13 @@ class AuthController extends Controller
                 if ($mail) {
 
                     return response()->json([
-                        'status_code' => 1,
+                        'status_code' => 200,
                         'message' => '已成功发送邮件'
                     ]);
                 }
 
                 return response()->json([
-                    'status_code' => 0,
+                    'status_code' => 500,
                     'message' => '请重试'
                 ]);
 
@@ -199,6 +213,87 @@ class AuthController extends Controller
                     'message' => '没有此用户'
                 ]);
             }
+        }
+    }
+
+
+    public function password (Request $request)
+    {
+        $validatro = Validator::make($request->all(), [
+            'email' => 'required|email|max:255',
+            'verify_code' => 'required|size:6',
+            'password' => 'required|min:6|max:255|confirmed',
+        ]);
+
+        if ($validatro->fails()) {
+
+            return response()->json([
+                'status_code' => 400,
+                'message' => $validatro->errors()->first()
+            ]);
+        } else {
+            $email = $request->get('email');
+            $verifyCode = $request->get('verify_code');
+            $password = $request->get('password');
+
+            $verifyRes = $this->verifyToken($email, $verifyCode);
+            if ($verifyRes) {
+
+                $user = User::where('email', $email)->first();
+                if ($user) {
+                    $user->password = bcrypt($password);
+                    $user->save();
+
+                    return response()->json([
+                        'status_code' => 200,
+                        'message' => '修改成功'
+                    ]);
+                } else {
+
+                    return response()->json([
+                        'status_code' => 404,
+                        'message' => '用户未找到'
+                    ]);
+                }
+
+            } else {
+
+                return response()->json([
+                    'status_code' => 400,
+                    'message' => '验证码过期或错误'
+                ]);
+            }
+
+
+        }
+
+    }
+
+    /**
+     * Author huaixiu.zhen
+     * http://litblc.com
+     * @param $email
+     * @param $token
+     * @return bool true为验证码通过
+     */
+    private function verifyToken ($email, $token)
+    {
+        $reset = PasswordReset::where([
+            'email' => $email,
+            'token' => $token,
+        ])->first();
+
+        if ($reset) {
+            if ($reset->created_at->timestamp + 600 > time()) {
+
+                return true;
+            }
+
+            return false;
+
+        } else {
+
+            return false;
         }
     }
 
