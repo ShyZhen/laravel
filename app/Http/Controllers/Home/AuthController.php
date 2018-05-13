@@ -262,8 +262,6 @@ class AuthController extends Controller
                     'message' => '验证码过期或错误'
                 ]);
             }
-
-
         }
 
     }
