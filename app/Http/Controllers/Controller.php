@@ -14,14 +14,14 @@ class Controller extends BaseController
 
 
     /**
-     * 发送邮件
+     * 发�?�邮�?
      * Author huaixiu.zhen
      * http://litblc.com
      * @param $toEmail
      * @param $data array
      * @param $subject
      */
-    protected function sendEmail ($toEmail, $data, $subject)
+    protected function sendEmail($toEmail, $data, $subject)
     {
         Mail::send('__layout.email', $data, function ($message) use ($toEmail, $subject) {
             $message->to($toEmail)->subject($subject);
@@ -33,5 +33,22 @@ class Controller extends BaseController
         }
 
         return true;
+    }
+
+    /**
+     * Author huaixiu.zhen@gmail.com
+     * http://litblc.com
+     * @param string $prefix
+     * @return string
+     */
+    protected function uuid($prefix = '')
+    {
+        $chars = md5(uniqid(mt_rand(), true));
+        $uuid  = substr($chars,0,8) . '-';
+        $uuid .= substr($chars,8,4) . '-';
+        $uuid .= substr($chars,12,4) . '-';
+        $uuid .= substr($chars,16,4) . '-';
+        $uuid .= substr($chars,20,12);
+        return $prefix . $uuid;
     }
 }

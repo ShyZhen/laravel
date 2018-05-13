@@ -25,7 +25,7 @@ class PasswordReset extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'token', 'created_at'
+        'email', 'token',
     ];
 
 }

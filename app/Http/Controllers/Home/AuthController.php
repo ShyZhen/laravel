@@ -21,7 +21,7 @@ use Yuansir\Toastr\Facades\Toastr;
 class AuthController extends Controller
 {
 
-    public function login (Request $request)
+    public function login(Request $request)
     {
         //session()->flush();  // 防止其他页面调用的toastr方法遗留下来的session,只有快速切换时会出现影响
 
@@ -34,7 +34,7 @@ class AuthController extends Controller
         }
 
     }
-    public function postLogin (Request $request)
+    public function postLogin(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:255',
@@ -83,7 +83,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return $this|\Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function register (Request $request)
+    public function register(Request $request)
     {
         if ($request->isMethod('GET')) {
 
@@ -108,11 +108,13 @@ class AuthController extends Controller
                 return view('auth.register')->with('errors', $validator->errors());
             } else {
 
+                $uuid = $this->uuid('user-');
                 $register = User::create([
                     'name' => $request->get('name'),
                     //'password' => password_hash($request->get('password'), PASSWORD_DEFAULT),
                     'password' => bcrypt($request->get('password')),
                     'email' => $request->get('email'),
+                    'uuid' => $uuid
                 ]);
 
                 Auth::attempt(['email' => $request->get('email'), 'password' => $request->get('password')], true);
@@ -133,7 +135,7 @@ class AuthController extends Controller
     }
 
 
-    public function logout ()
+    public function logout()
     {
         $bool = Auth::logout();
         return redirect('/auth/login');
@@ -147,7 +149,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\JsonResponse|\Illuminate\View\View
      */
-    public function resetPassword (Request $request)
+    public function resetPassword(Request $request)
     {
         if ($request->isMethod('GET')) {
 
@@ -179,12 +181,11 @@ class AuthController extends Controller
             $user = User::where('email', $email)->first();
             if ($user) {
                 $code = str_pad(mt_rand(0, 999999), 6, "0", STR_PAD_BOTH);
-                $reset = PasswordReset::updateOrInsert([
+                $reset = PasswordReset::updateOrCreate([
                     'email' => $email
                 ],[
                     'email' => $email,
                     'token' => $code,
-                    'created_at' => time()
                 ]);
 
                 $data = [
@@ -216,7 +217,7 @@ class AuthController extends Controller
     }
 
 
-    public function password (Request $request)
+    public function password(Request $request)
     {
         $validatro = Validator::make($request->all(), [
             'email' => 'required|email|max:255',
@@ -275,7 +276,7 @@ class AuthController extends Controller
      * @param $token
      * @return bool true为验证码通过
      */
-    private function verifyToken ($email, $token)
+    private function verifyToken($email, $token)
     {
         $reset = PasswordReset::where([
             'email' => $email,
@@ -283,15 +284,11 @@ class AuthController extends Controller
         ])->first();
 
         if ($reset) {
-            if ($reset->created_at->timestamp + 600 > time()) {
-
+            if ($reset->updated_at->timestamp + 600 > time()) {
                 return true;
             }
-
             return false;
-
         } else {
-
             return false;
         }
     }
