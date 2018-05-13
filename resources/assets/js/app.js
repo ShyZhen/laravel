@@ -120,12 +120,13 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrfToken').g
             userLogin: function () {
                 //test.test123();
                 //test2.test123();
-                
+
                 var data = {
                     email: this.accoutUsername,
                     password: this.accoutPassword,
                     remember: this.accoutRemember,
                 };
+
                 if (this.accoutUsername && this.accoutPassword) {
 
                     this.$http.post('/auth/login', data).then(function(response){

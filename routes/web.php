@@ -105,6 +105,9 @@ Route::group(['namespace' => 'Home', 'prefix' => 'auth'], function() {
     Route::get('/register', 'AuthController@register');
     Route::post('/register', 'AuthController@register');
     Route::post('logout', 'AuthController@logout');
+    Route::get('/password', 'AuthController@resetPassword');
+    Route::post('/password', 'AuthController@resetPassword');
+    Route::put('/password', 'AuthController@password');
 });
 
 Route::group(['namespace' => 'Home', 'prefix' => 'home', 'middleware' => ['web', 'home.auth']], function() {
@@ -114,6 +117,8 @@ Route::group(['namespace' => 'Home', 'prefix' => 'home', 'middleware' => ['web',
 
 
    Route::get('/index', 'IndexController@index');
+   Route::get('/me', 'IndexController@myInfo');
+
 
 });
 

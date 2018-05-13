@@ -61,10 +61,19 @@ class IndexController
      */
     public function sendEmail ()
     {
-        Mail::send('__layout.email', ['data' => '验证码：444'], function ($message) {
+        $mail = Mail::send('__layout.email', ['data' => '验证码：444'], function ($message) {
             $message->to('835433343@qq.com')->subject('萌面怪兽验证码服务');
         });
+        return $mail;
     }
+
+
+    public function myInfo ()
+    {
+        $user = Auth::user();
+        return view('home.myinfo')->with(['user' => $user]);
+    }
+
 
 
 

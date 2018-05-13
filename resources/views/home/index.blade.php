@@ -5,4 +5,4 @@
     {{ $user }}
     <hr>
     {{$remember}}
-    @endsection
+@endsection
