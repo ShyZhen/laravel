@@ -48,14 +48,19 @@ class IndexController
     }
 
 
-
+    /**测试依赖注入和参数传递
+     * Author huaixiu.zhen@gmail.com
+     * http://litblc.com
+     * @param Test1 $test1
+     * @return Test1
+     */
     public function testInfo (Test1 $test1)
     {
         return $test1;
     }
 
     /**
-     * 发送邮件
+     * 发送邮件测试
      * Author huaixiu.zhen
      * http://litblc.com
      */
@@ -68,6 +73,12 @@ class IndexController
     }
 
 
+    /**
+     * 个人中心
+     * Author huaixiu.zhen@gmail.com
+     * http://litblc.com
+     * @return $this
+     */
     public function myInfo ()
     {
         $user = Auth::user();

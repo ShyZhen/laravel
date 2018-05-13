@@ -17,7 +17,7 @@ class CreatePasswordResetsTable extends Migration
             $table->increments('id');
             $table->string('email')->index();
             $table->string('token')->index();                 // code 验证码
-            $table->timestamp('created_at')->nullable();      // now(),判断过期时间用
+            $table->timestamps();      // now(),判断过期时间用
         });
     }
 
