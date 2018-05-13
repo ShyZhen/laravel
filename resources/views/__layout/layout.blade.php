@@ -11,6 +11,8 @@
 @include('__layout.flashmessage')
 <div id="main" class="main" v-cloak>
 
+    @include('__layout.header')
+
     <div id="sidebar" class="sidebar">
         @section('sidebar')
             layout sidebar

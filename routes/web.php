@@ -17,8 +17,7 @@ Route::get('/', function () {
 
 Route::group(['namespace' => 'Home'], function() {
    Route::get('attempt', 'WelcomeController@attempt');
-   Route::get('auth', 'WelcomeController@authUser');
-   Route::get('logout', 'WelcomeController@logout');
+
    Route::get('index', 'WelcomeController@index');
    Route::get('getCache', 'WelcomeController@getCache');
    Route::get('putCache', 'WelcomeController@putCache');
@@ -96,7 +95,30 @@ Route::group(['namespace' => 'Home', 'prefix' => 'view'], function() {
    Route::get('/css', 'ViewController@css');
 });
 
+
+// test over;
+
 Route::group(['namespace' => 'Home', 'prefix' => 'auth'], function() {
+    Route::get('/', 'WelcomeController@authUser');
     Route::get('/login', 'AuthController@login');
     Route::post('/login', 'AuthController@postLogin');
+    Route::get('/register', 'AuthController@register');
+    Route::post('/register', 'AuthController@register');
+    Route::post('logout', 'AuthController@logout');
+    Route::get('/password', 'AuthController@resetPassword');
+    Route::post('/password', 'AuthController@resetPassword');
+    Route::put('/password', 'AuthController@password');
 });
+
+Route::group(['namespace' => 'Home', 'prefix' => 'home', 'middleware' => ['web', 'home.auth']], function() {
+    // 测试
+    Route::get('/user/{user}/info/{id}', 'IndexController@userInfo');
+    Route::get('/send', 'IndexController@sendEmail');
+
+
+   Route::get('/index', 'IndexController@index');
+   Route::get('/me', 'IndexController@myInfo');
+
+
+});
+

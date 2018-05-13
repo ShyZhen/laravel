@@ -4,5 +4,4 @@
 @section('content')
     {{ $user }}
     <hr>
-    {{$remember}}
-@endsection
+    @endsection
