@@ -215,8 +215,7 @@ class AuthController extends Controller
             }
         }
     }
-
-
+    
     public function password(Request $request)
     {
         $validatro = Validator::make($request->all(), [
