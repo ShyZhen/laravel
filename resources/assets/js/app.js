@@ -119,23 +119,23 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#csrfToken').g
             userLogin: function () {
                 //test.test123();
                 //test2.test123();
-                
+
                 var data = {
                     username: this.accoutUsername,
                     password: this.accoutPassword,
                 };
                 this.$http.post('/auth/login', data).then(function(response){
                     if (response.body.status_code == 1) {
-                        toastr.error(response.body.message);
+                        //toastr.error(response.body.message);
                         this.toastMessage('success', response.body.message);
 
                     } else {
-                        toastr.error(response.body.message);
-                        this.toastMessage('success',response.body.message);
+                        //toastr.error(response.body.message);
+                        this.toastMessage('error',response.body.message);
                     }
                 }, function (response){
-                    toastr.error('Server Error 500');
-                    this.toastMessage('success','Server Error 500');
+                    //toastr.error('Server Error 500');
+                    this.toastMessage('error','Server Error 500');
                 })
 
 
