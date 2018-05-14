@@ -34,6 +34,14 @@ class AuthController extends Controller
         }
 
     }
+
+    /**
+     * 登录
+     * Author huaixiu.zhen
+     * http://litblc.com
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function postLogin(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -78,6 +86,7 @@ class AuthController extends Controller
 
 
     /**
+     * 注册
      * Author huaixiu.zhen
      * http://litblc.com
      * @param Request $request
@@ -104,7 +113,7 @@ class AuthController extends Controller
                 'password' => 'required|min:6|max:255|confirmed',
             ]);
             if ($validator->fails()) {
-
+                //dd($validator->errors()->first());
                 return view('auth.register')->with('errors', $validator->errors());
             } else {
 
@@ -143,7 +152,7 @@ class AuthController extends Controller
 
 
     /**
-     * 发送验证码
+     * 发送验证码-忘记密码
      * Author huaixiu.zhen
      * http://litblc.com
      * @param Request $request
@@ -289,6 +298,8 @@ class AuthController extends Controller
             return false;
         }
     }
+
+
 
 
 }

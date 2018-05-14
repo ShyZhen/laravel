@@ -121,4 +121,5 @@ Route::group(['namespace' => 'Home', 'prefix' => 'home', 'middleware' => ['web',
 
 
 });
+//Route::get('/test', 'Home\IndexController@jndge');
 
