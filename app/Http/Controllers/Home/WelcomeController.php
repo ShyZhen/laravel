@@ -87,11 +87,6 @@ class WelcomeController extends Controller
         dd($res);
     }
 
-    public function getRedis()
-    {
-        $test = Redis::get('name:1');
-        dd($test);
-    }
 
     public function csrf()
     {

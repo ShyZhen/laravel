@@ -85,6 +85,47 @@ class IndexController
         return view('home.myinfo')->with(['user' => $user]);
     }
 
+    /**
+     * 给定值是否是该数组下两者之和
+     * Author huaixiu.zhen
+     * http://litblc.com
+     * @param array $a
+     * @param int $x
+     * @return string
+     */
+    public function jndge($a = [], $x = 0)
+    {
+        $a = [2, 3, 7, 10, 8, 19, 11, 13, 23, 30, 45, 90];
+        $x = 5;
+        rsort($a);
+        foreach ($a as $key => $val) {
+            if (in_array($x - $val, $a)) {
+                return $val.'+'.($x - $val);
+            }
+        }
+        return 'false';
+
+
+//
+//        $arr = [2, 3, 7, 10, 8, 19, 11, 13, 23, 30, 45, 90];
+//        sort($arr);
+//        $num = 5;
+//        $index = array_search($num, $arr) !== false ? array_search($num, $arr) : count($arr) - 1;
+//
+//        for ($i = 0, $j = $index; $i < $index; $i++, $j--) {
+//            if ($arr[$i] + $arr[$j] > $num) {
+//                $i--;
+//            } else if ($arr[$i] + $arr[$j] < $num) {
+//                $j++;
+//            } else {
+//                return $arr[$i].'+'.$arr[$j];
+//            }
+//
+//        }
+//        return 'false';
+
+    }
+
 
 
 

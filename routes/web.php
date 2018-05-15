@@ -103,6 +103,7 @@ Route::group(['namespace' => 'Home', 'prefix' => 'auth'], function() {
     Route::get('/login', 'AuthController@login');
     Route::post('/login', 'AuthController@postLogin');
     Route::get('/register', 'AuthController@register');
+    Route::post('/register/code', 'AuthController@registerCode');
     Route::post('/register', 'AuthController@register');
     Route::post('logout', 'AuthController@logout');
     Route::get('/password', 'AuthController@resetPassword');
@@ -121,4 +122,5 @@ Route::group(['namespace' => 'Home', 'prefix' => 'home', 'middleware' => ['web',
 
 
 });
+//Route::get('/test', 'Home\IndexController@jndge');
 
