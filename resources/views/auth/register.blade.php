@@ -8,7 +8,7 @@
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('auth/password/') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('auth/register/code') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -65,6 +65,20 @@
 
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/auth/register') }}">
                         {{ csrf_field() }}
+
+                        <div class="form-group {{ $errors->has('verify_code') ? ' has-error' : '' }}">
+                            <label for="verify_code" class="col-md-4 control-label">验证码</label>
+
+                            <div class="col-md-6">
+                                <input id="verify_code" type="number" class="form-control" name="verify_code" required>
+
+                                @if ($errors->has('verify_code'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('verify_code') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
