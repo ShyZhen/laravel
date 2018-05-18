@@ -82,6 +82,7 @@ class IndexController
     public function myInfo ()
     {
         $user = Auth::user();
+//        dd(request()->user());
         return view('home.myinfo')->with(['user' => $user]);
     }
 
