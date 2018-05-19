@@ -167,7 +167,7 @@ return [
          * Package Service Providers...
          */
         Laravel\Passport\PassportServiceProvider::class,
-
+        Dingo\Api\Provider\LaravelServiceProvider::class,
         //
 
         /*

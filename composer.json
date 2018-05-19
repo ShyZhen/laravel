@@ -10,7 +10,8 @@
         "laravel/framework": "5.3.*",
         "laravel/passport": "1.*",
         "predis/predis": "^1.1",
-        "ryan/toastr-for-laravel": "^1.1"
+        "ryan/toastr-for-laravel": "^1.1",
+        "dingo/api": "1.0.*@dev"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
