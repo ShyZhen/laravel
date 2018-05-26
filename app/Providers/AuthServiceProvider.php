@@ -31,7 +31,8 @@ class AuthServiceProvider extends ServiceProvider
         Passport::routes();
 
         // 设置令牌的有效期
-        Passport::tokensExpireIn(Carbon::now()->addDays(30));
+//        Passport::tokensExpireIn(Carbon::now()->addSeconds(15));
+        Passport::tokensExpireIn(Carbon::now()->addDays(15));
 
         Passport::refreshTokensExpireIn(Carbon::now()->addDays(30));
 

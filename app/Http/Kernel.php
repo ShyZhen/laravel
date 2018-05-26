@@ -55,5 +55,8 @@ class Kernel extends HttpKernel
 
         'test' => \App\Http\Middleware\Test::class,
         'home.auth' => \App\Http\Middleware\HomeAuth::class,
+
+        // 跨域路由中间件
+        'cors' => \App\Http\Middleware\Cors::class,
     ];
 }

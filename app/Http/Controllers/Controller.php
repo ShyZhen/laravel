@@ -67,6 +67,18 @@ class Controller extends BaseController
     }
 
     /**
+     * redis自增
+     * Author huaixiu.zhen@gmail.com
+     * http://litblc.com
+     * @param $key
+     * @return mixed
+     */
+    protected function redisIncr($key)
+    {
+        $incr = Redis::incr($key);
+        return $incr;
+    }
+    /**
      * Author huaixiu.zhen
      * http://litblc.com
      * @param $key

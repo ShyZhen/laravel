@@ -34,6 +34,7 @@ class AuthController extends Controller
     /**
      * 登录，客户端可以判断是web还是app,web存sessionStorage,app存local
      * 再次判断是否有token,没有才访问login
+     * 所有鉴权失败都跳转到login
      * 所有需要鉴权的操作需要在header携带登录所生成的access_token
      * headers => [
      *    'Accept' => 'application/json',
@@ -47,6 +48,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         // TODO 重复登录刷api问题
+        // TODO 清理过期token监听事件
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:255',
             'password' => 'required|min:6|max:255',
@@ -62,6 +64,20 @@ class AuthController extends Controller
         $password = $request->get('password');
         $user = User::where('email', $email);
         if ($user->first() && $user->first()->closure == 'none') {
+
+            // 暴力破解处理
+            if ($this->isRedisExists($email.':login:number')) {
+                $this->redisIncr($email.':login:number');
+                if ($this->getRedis($email.':login:number') >= 10) {
+                    return response()->json([
+                        'status_code' => 403,
+                        'message' => '您请求次数过多，请稍后重试，祝您生活愉快'
+                    ]);
+                }
+            } else {
+                $this->setRedis($email.':login:number', 1, 'EX', 600);
+            }
+
             $userInfo = [
                 'username' => $email,
                 'password' => $password,
