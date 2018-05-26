@@ -6,12 +6,13 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "dingo/api": "1.0.*@dev",
+        "elasticsearch/elasticsearch": "~6.0",
         "laracasts/flash": "^3.0",
         "laravel/framework": "5.3.*",
         "laravel/passport": "1.*",
         "predis/predis": "^1.1",
-        "ryan/toastr-for-laravel": "^1.1",
-        "dingo/api": "1.0.*@dev"
+        "ryan/toastr-for-laravel": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
