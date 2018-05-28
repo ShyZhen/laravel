@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
+
 use App\Http\Controllers\Controller;
 use App\Model\User;
 use GuzzleHttp\Client;
@@ -323,4 +324,5 @@ class AuthController extends Controller
     {
         return Auth::user();
     }
+
 }

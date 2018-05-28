@@ -28,15 +28,19 @@ $api->version('v1', function ($api) {
         $api->post('password-code', 'AuthController@passwordCode');
         $api->post('password', 'AuthController@password');
     });
+    // need access_token
     $api->group(['prefix' => 'v1','middleware' => [ 'cors', 'auth:api'], 'namespace' => 'App\Http\Controllers\Api\V1'], function($api) {
         $api->get('me', 'AuthController@myInfo');
         $api->get('logout', 'AuthController@logout');
     });
 });
 
+// for test
+$api->version('v1', function ($api) {
+    $api->group(['prefix' => 'v2', 'middleware' => 'auth:api', 'namespace' => 'App\Http\Controllers\Api\V2'], function($api) {
+        $api->get('test', 'TestController@test');
+    });
+    $api->group(['prefix' => 'test', 'namespace' => 'App\Http\Controllers\Api\V1'], function($api) {
 
-//$api->version('v1', function ($api) {
-//    $api->group(['prefix' => 'v2', 'middleware' => 'auth:api', 'namespace' => 'App\Http\Controllers\Api\V2'], function($api) {
-//        $api->get('test', 'TestController@test');
-//    });
-//});
+    });
+});
