@@ -29,14 +29,14 @@ $api->version('v1', function ($api) {
         $api->post('password', 'AuthController@password');
     });
     $api->group(['prefix' => 'v1','middleware' => [ 'cors', 'auth:api'], 'namespace' => 'App\Http\Controllers\Api\V1'], function($api) {
-        $api->get('user', 'AuthController@userInfo');
+        $api->get('me', 'AuthController@myInfo');
         $api->get('logout', 'AuthController@logout');
     });
 });
 
 
-$api->version('v1', function ($api) {
-    $api->group(['prefix' => 'v2', 'middleware' => 'auth:api', 'namespace' => 'App\Http\Controllers\Api\V2'], function($api) {
-        $api->get('test', 'TestController@test');
-    });
-});
+//$api->version('v1', function ($api) {
+//    $api->group(['prefix' => 'v2', 'middleware' => 'auth:api', 'namespace' => 'App\Http\Controllers\Api\V2'], function($api) {
+//        $api->get('test', 'TestController@test');
+//    });
+//});

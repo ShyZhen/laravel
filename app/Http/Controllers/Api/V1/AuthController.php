@@ -319,7 +319,7 @@ class AuthController extends Controller
      * http://litblc.com
      * @return mixed
      */
-    public function userInfo()
+    public function myInfo()
     {
         return Auth::user();
     }
