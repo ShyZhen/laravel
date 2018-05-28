@@ -34,7 +34,7 @@ class ElasticsearchController
      * Author huaixiu.zhen@gmail.com
      * http://litblc.com
      * @param $index
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function indexCreate($index)
     {
@@ -49,7 +49,7 @@ class ElasticsearchController
         ];
         $response = self::$esClient->indices()->create($params);
 
-        return response()->json($response);
+        return $response;
     }
 
 
@@ -58,7 +58,7 @@ class ElasticsearchController
      * Author huaixiu.zhen@gmail.com
      * http://litblc.com
      * @param $index
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function indexDelete($index)
     {
@@ -67,7 +67,84 @@ class ElasticsearchController
         ];
         $response =  self::$esClient->indices()->delete($params);
 
-        return response()->json($response);
+        return $response;
+    }
+
+
+    /**
+     * 更改或增加user索引的映射
+     * 在创建完user的index后使用
+     * Author huaixiu.zhen
+     * http://litblc.com
+     * @param $index
+     * @param $type
+     * @return array
+     */
+    public function putMappingsForUser($index, $type)
+    {
+        $params = [
+            'index' => $index,
+            'type' => $type,
+            'body' => [
+                $type => [
+                    '_source' => [
+                        'enabled' => true
+                    ],
+                    'properties' => [
+                        'name' => [                     // name 是需要搜索分词的字段
+                            'type' => 'text',
+                            'analyzer' => 'ik_smart',
+                            'search_analyzer' => 'ik_smart',
+                            'search_quote_analyzer' => 'ik_smart'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        $response = self::$esClient->indices()->putMapping($params);
+
+        return $response;
+    }
+
+    /**
+     * 更改或增加 文章post 索引的映射
+     * 在创建完post的index后使用
+     * Author huaixiu.zhen
+     * http://litblc.com
+     * @param $index
+     * @param $type
+     * @return array
+     */
+    public function putMappingsForPost($index, $type)
+    {
+        $params = [
+            'index' => $index,
+            'type' => $type,
+            'body' => [
+                $type => [
+                    '_source' => [
+                        'enabled' => true
+                    ],
+                    'properties' => [
+                        'title' => [
+                            'type' => 'text',
+                            'analyzer' => 'ik_smart',
+                            'search_analyzer' => 'ik_smart',
+                            'search_quote_analyzer' => 'ik_smart'
+                        ],
+                        'content' => [
+                            'type' => 'text',
+                            'analyzer' => 'ik_smart',
+                            'search_analyzer' => 'ik_smart',
+                            'search_quote_analyzer' => 'ik_smart'
+                        ],
+                    ]
+                ]
+            ]
+        ];
+        $response = self::$esClient->indices()->putMapping($params);
+
+        return $response;
     }
 
 
@@ -79,32 +156,10 @@ class ElasticsearchController
      * @param $type string
      * @param $id int
      * @param $body array('key' => 'val')
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function createDoc($index, $type, $id, $body)
     {
-        /* TODO
-        array_push($body, ['mappings' => [
-            '_default_' => [
-                'dynamic_templates' => [
-                    [
-                        'strings' => [
-                            'match_mapping_type' => 'string',
-                            'mapping' => [
-                                'type' => 'text',
-                                'analyzer' => 'ik_smart',
-                                'fields' => [
-                                    'keyword' => [
-                                        'type' => 'keyword'
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ]
-        ]]);
-        */
         $params = [
             'index' => $index,
             'type' => $type,
@@ -114,7 +169,7 @@ class ElasticsearchController
         ];
         $response = self::$esClient->index($params);
 
-        return response()->json($response);
+        return $response;
     }
 
 
@@ -125,7 +180,7 @@ class ElasticsearchController
      * @param $index string
      * @param $type string
      * @param $id int
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function getDoc($index, $type, $id)
     {
@@ -136,7 +191,7 @@ class ElasticsearchController
         ];
         $response = self::$esClient->get($params);
 
-        return response()->json($response);
+        return $response;
     }
 
 
@@ -147,7 +202,7 @@ class ElasticsearchController
      * @param $index string
      * @param $type string
      * @param $query string
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function search($index, $type, $query)
     {
@@ -166,14 +221,14 @@ class ElasticsearchController
                         'query' => $query,
                         "type" => "best_fields",
                         'operator' => 'or',
-                        'fields' => ['name', 'title', 'content']  // TODO 根据数据表字段，准确说是存入es的字段进行修改
+                        'fields' => ['title', 'content']  // TODO 根据数据表字段，准确说是存入es的字段进行修改
                     ]
                 ]
             ]
         ];
         $response = self::$esClient->search($params);
 
-        return response()->json($response['hits']);
+        return $response['hits'];
     }
 
 
@@ -184,7 +239,7 @@ class ElasticsearchController
      * @param $index
      * @param $type
      * @param $id
-     * @return \Illuminate\Http\JsonResponse
+     * @return array
      */
     public function delete($index, $type, $id)
     {
@@ -195,6 +250,6 @@ class ElasticsearchController
         ];
         $response = self::$esClient->delete($params);
 
-        return response()->json($response);
+        return $response;
     }
 }

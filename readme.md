@@ -20,3 +20,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
  - `npm install`
  - `php artisan migrate`  
  - `gulp`
+ - `php artisan es:init`(create index and mapping for post)

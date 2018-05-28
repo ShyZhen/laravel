@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
+
 use App\Http\Controllers\Controller;
 use App\Model\User;
 use GuzzleHttp\Client;
@@ -319,8 +320,9 @@ class AuthController extends Controller
      * http://litblc.com
      * @return mixed
      */
-    public function userInfo()
+    public function myInfo()
     {
         return Auth::user();
     }
+
 }
