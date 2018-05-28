@@ -10,6 +10,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
  - Mysql
  - Redis
  - Nodejs
+ - ElasticSearch = 6.2.4 && ElasticSearch-analysis-ik (one index,one type)
 
 ## Installation
 
