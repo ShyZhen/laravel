@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('title', 128)->defult('');
-            $table->text('content')->default('');
+            $table->text('content');
             $table->unsignedInteger('like_num')->default(0);
             $table->unsignedInteger('dislike_num')->default(0);
             $table->enum('deleted', ['yes', 'none'])->default('none');

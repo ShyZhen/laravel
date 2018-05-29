@@ -124,11 +124,71 @@ class PostController extends Controller
         }
     }
 
-
-    // 发送post 和隐藏域_method=put即可
+    /**
+     * 更新post
+     * Author huaixiu.zhen@gmail.com
+     * http://litblc.com
+     * @param Request $request
+     * @param $uuid
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function updatePost(Request $request, $uuid)
     {
+        $validator = Validator::make($request->all(), [
+            'content' => 'required|max:500',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status_code' => 400,
+                'message' => $validator->errors()->first()
+            ]);
+        } else {
+            $post = Post::where('uuid', $uuid)->first();
+            if ($post) {
+                $post->content = $request->get('content');
+                if ($post->save()) {
+                    $post->userinfo = $this->getUserInfoById($post->user_id);
+                    return response()->json([
+                        'status_code' => 201,
+                        'data' => $post
+                    ]);
+                }
+                return response()->json([
+                    'status_code' => 500,
+                    'message' => '网络错误，请重试'
+                ]);
+            }
 
+            return response()->json([
+                'status_code' => 400,
+                'message' => '文章未找到，请检查您的输入'
+            ]);
+        }
+    }
+
+    /**
+     * 删除文章
+     * Author huaixiu.zhen@gmail.com
+     * http://litblc.com
+     * @param $uuid
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function deletePost($uuid)
+    {
+        $post = Post::where('uuid', $uuid)->first();
+        if ($post) {
+            if ($post->delete()) {
+                return response()->json([
+                    'status_code' => 204,
+                    'message' => '删除成功'
+                ]);
+            }
+        }
+
+        return response()->json([
+            'status_code' => 400,
+            'message' => '文章未找到，请检查您的输入'
+        ]);
     }
 
 }

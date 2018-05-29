@@ -38,8 +38,10 @@ $api->version('v1', function ($api) {
         $api->get('post/{uuid}', 'PostController@getPostById');
         $api->post('post', 'PostController@createPost');
         $api->put('post/{uuid}', 'PostController@updatePost');
+        $api->delete('post/{uuid}', 'PostController@deletePost');
     });
 });
+
 
 
 
