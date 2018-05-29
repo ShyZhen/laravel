@@ -64,7 +64,9 @@ class HttpController extends Controller
         if ($request->isMethod('get')) {
 
             return view('home.upload');
+
         } elseif ($request->isMethod('post')) {
+
             $fileImg = $request->file('fileimg');
             $fileImgPath = $fileImg->path(); // 缓存到系统的tmp文件
             $fileImgExt= $fileImg->extension(); //源文件的后缀

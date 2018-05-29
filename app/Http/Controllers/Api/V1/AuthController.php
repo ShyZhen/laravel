@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
+
 use App\Http\Controllers\Controller;
 use App\Model\User;
 use GuzzleHttp\Client;
@@ -66,16 +67,16 @@ class AuthController extends Controller
         if ($user->first() && $user->first()->closure == 'none') {
 
             // 暴力破解处理
-            if ($this->isRedisExists($email.':login:number')) {
-                $this->redisIncr($email.':login:number');
-                if ($this->getRedis($email.':login:number') >= 10) {
+            if ($this->isRedisExists('login:times:'.$email)) {
+                $this->redisIncr('login:times:'.$email);
+                if ($this->getRedis('login:times:'.$email) >= 10) {
                     return response()->json([
                         'status_code' => 403,
                         'message' => '您请求次数过多，请稍后重试，祝您生活愉快'
                     ]);
                 }
             } else {
-                $this->setRedis($email.':login:number', 1, 'EX', 600);
+                $this->setRedis('login:times:'.$email, 1, 'EX', 600);
             }
 
             $userInfo = [
@@ -194,7 +195,7 @@ class AuthController extends Controller
                     $token = $user->createToken('Token Name')->accessToken;
 
                     return response()->json([
-                        'status_code' => 200,
+                        'status_code' => 201,
                         'access_token' => $token
                     ]);
                 } else {
@@ -244,7 +245,7 @@ class AuthController extends Controller
             $code = $this->code();
             $this->setRedis('password:email:'.$email, $code, 'EX', 600);
             $data = [
-                'data' => '验证码:'.$code.'如果这不是您的邮件，请不必担心，该来的迟早会来'
+                'data' => '验证码:'.$code.'如果这不是您的邮件，请不必理会'
             ];
             $subject = '萌面怪兽忘记密码服务';
             $mail = $this->sendEmail($email, $data, $subject);
@@ -319,8 +320,9 @@ class AuthController extends Controller
      * http://litblc.com
      * @return mixed
      */
-    public function userInfo()
+    public function myInfo()
     {
         return Auth::user();
     }
+
 }

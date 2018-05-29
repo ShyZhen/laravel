@@ -14,5 +14,6 @@ return [
     */
 
     'test' => 'test en lang',
+    'user_destory' => 'written off',
 
 ];

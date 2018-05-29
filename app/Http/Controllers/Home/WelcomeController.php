@@ -74,7 +74,10 @@ class WelcomeController extends Controller
 
     public function getCache()
     {
-        $user =  Cache::get('user');
+        // 传入闭包获取默认值
+        $user =  Cache::get('user', function() {
+            return User::find(1);
+        });
         dd($user);
     }
     public function putCache() {
