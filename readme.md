@@ -21,3 +21,12 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
  - `php artisan migrate`  
  - `gulp`
  - `php artisan es:init`(create index and mapping for post)
+ - `php artisan passport:install`
+
+
+ ## Logs
+
+ 1. set post:user:{id} to redis for create post
+ 2. set user:email:{email} to redis for register code
+ 3. set login:times:{email} to redis for login time limit
+ 4. set password:email:{email} to redis for password code

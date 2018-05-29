@@ -14,5 +14,6 @@ return [
     */
 
     'test' => '测试中文语言包',
+    'user_destory_name' => '用户已注销',
 
 ];

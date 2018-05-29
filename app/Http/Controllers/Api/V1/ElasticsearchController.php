@@ -107,8 +107,8 @@ class ElasticsearchController
     }
 
     /**
-     * 更改或增加 文章post 索引的映射
-     * 在创建完post的index后使用
+     * 更改或增加 文章 post 索引的映射 // TODO 字段优化
+     * 在创建完post的index后使用,目前已经集成到es:init命令中
      * Author huaixiu.zhen
      * http://litblc.com
      * @param $index
