@@ -34,7 +34,7 @@ $api->version('v1', function ($api) {
     });
 });
 
-
+// for test
 $api->version('v1', function ($api) {
     $api->group(['prefix' => 'v2', 'middleware' => 'auth:api', 'namespace' => 'App\Http\Controllers\Api\V2'], function($api) {
         $api->get('test', 'TestController@test');
