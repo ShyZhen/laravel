@@ -26,7 +26,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
  ## Logs
 
- 1. set post:user:{id} to redis for create post
- 2. set user:email:{email} to redis for register code
- 3. set login:times:{email} to redis for login time limit
- 4. set password:email:{email} to redis for password code
+ 1. `set post:user:{id} to redis for create post`
+ 2. `set user:email:{email} to redis for register code`
+ 3. `set login:times:{email} to redis for login time limit`
+ 4. `set password:email:{email} to redis for password code`
