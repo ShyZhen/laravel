@@ -69,10 +69,10 @@ class AuthController extends Controller
             // 暴力破解处理
             if ($this->isRedisExists('login:times:'.$email)) {
                 $this->redisIncr('login:times:'.$email);
-                if ($this->getRedis('login:times:'.$email) >= 10) {
+                if ($this->getRedis('login:times:'.$email) >= 5) {
                     return response()->json([
                         'status_code' => 403,
-                        'message' => '您请求次数过多，请稍后重试，祝您生活愉快'
+                        'message' => '您请求次数过多，请稍后重试'
                     ]);
                 }
             } else {
